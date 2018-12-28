@@ -14,7 +14,6 @@
  *  text: text to show
  *  options: object that can override the following options
  *    type: alert will have class 'alert-color'. Default null
- *    icon: class of the icon to show before the alert. Default null
  *    duration: duration of the notification in ms. Default 2000ms
  *    container-id: id of the alert container. Default 'body'
 */
@@ -22,8 +21,7 @@ function allert(text, options) {
 
     var defaultOptions = {
         'type': null,              // type is  CSS class `alert-type`
-        'align': "bottom-left",
-        'icon': null,              // class of the icon to show before the alert text
+        'align': "top-right",
         'duration': 2000,        // duration of the notification in ms
         'container-id': "body"     // id of the alert container
     }
@@ -48,11 +46,6 @@ function allert(text, options) {
     var container = (options["container-id"] === "body") ? document.getElementsByTagName("body")[0] : document.getElementById(options["container-id"]);
 
     var typeMarkup = "";
-    var iconMarkup = "";
-
-    if (options.icon) {
-        iconMarkup = "<span class='" + options.icon + "'></span> ";
-    }
 
     if (options.type) {
         typeMarkup = "allert-" + options.type;
@@ -64,16 +57,16 @@ function allert(text, options) {
     element.setAttribute("class", "allert allert-" + options.align + " " + typeMarkup);
     element.setAttribute("title", text);
 
-    element.innerHTML = iconMarkup + text;
+    element.innerHTML = text;
 
     container.appendChild(element);
 
     var close = function (element) {
-        element.classList.add("fadeout");
+        element.classList.add("allert-fadeout");
 
         // after the fadeout remove the element from DOM
         setTimeout(function () {
-            element.remove();;
+            element.remove();
         }, 1000);
     };
 
